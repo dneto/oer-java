@@ -12,6 +12,10 @@ import org.openexchangerates.oerjava.exceptions.UnavailableExchangeRateException
  */
 public abstract class OpenExchangeRates {
 
+	/**
+	 * Generate and get a new Open Exchange Rates client
+	 * @return a Open Exchange Rates client
+	 */
 	public static OpenExchangeRates getClient() {
 		return new OpenExchangeRatesJsonClient();
 	}
