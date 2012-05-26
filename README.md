@@ -35,3 +35,4 @@ public class BRLRate {
 ```
 
 For more information about this API see the [documentation][4]
+[4]:http://dneto.github.com/oer-java/documentation/
