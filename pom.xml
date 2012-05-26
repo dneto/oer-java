@@ -19,13 +19,11 @@
 		</repository>
 	</repositories>
 	<dependencies>
-		<dependencies>
 			<dependency>
 				<groupId>org.codehaus.jackson</groupId>
 				<artifactId>jackson-asl</artifactId>
 				<version>1.9.7</version>
 			</dependency>
-		</dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
