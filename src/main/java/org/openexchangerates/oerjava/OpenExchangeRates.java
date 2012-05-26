@@ -43,8 +43,7 @@ public abstract class OpenExchangeRates {
 	 *            Desired currency
 	 * @return Latest value of exchange rate
 	 */
-	public abstract BigDecimal getCurrencyValue(Currency currency)
-			throws UnavailableExchangeRateException;
+	public abstract BigDecimal getCurrencyValue(Currency currency);
 
 	/**
 	 * Get a historical exchange rate from a given currency and date
