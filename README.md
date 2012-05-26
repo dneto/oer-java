@@ -1,15 +1,20 @@
 Open Exchange Rates Java Client (oer-java)
 ==========================================
 
+Open-source Java Client for [Open Exchange Rates][2]
+
+##About Open Exchange Rates##
 Open Exchange Rates is a free, hourly-updating API that provides rates for about 120 currencies using USD as base.
 
-For more information see:
+For more information about Open Exchange Rates see:
 
-*    [GitHub Project][1]
-*    [Official Site][2]
+*    [Open Exchange Rates GitHub Project][1]
+*    [Open Exchange Rates Official Site][2]
+*    [Open Exchange Rates Official Doc][3]
 
 [1]:https://github.com/currencybot/open-exchange-rates
 [2]:http://openexchangerates.org/
+[3]:http://josscrowcroft.github.com/open-exchange-rates/
 
 ##How to Use##
 
