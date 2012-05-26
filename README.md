@@ -1,7 +1,7 @@
 Open Exchange Rates Java Client (oer-java)
 ==========================================
 
-Open-source Java Client for [Open Exchange Rates][2]
+Open-source Java Client for [Open Exchange Rates][2].
 
 ##About Open Exchange Rates##
 Open Exchange Rates is a free, hourly-updating API that provides rates for about 120 currencies using USD as base.
@@ -18,7 +18,8 @@ For more information about Open Exchange Rates see:
 
 ##How to Use##
 
-Let's do a simple example. Let's get the latest rates from BRL(Brazilian Real)
+For example let's get the latest rates from BRL(Brazilian Real):
+
 ```java
 import java.math.BigDecimal;
 import org.openexchangerates.oerjava.Currency;
@@ -33,4 +34,4 @@ public class BRLRate {
 }
 ```
 
-For more information see the [documentation][1]
+For more information about this API see the [documentation][4]
