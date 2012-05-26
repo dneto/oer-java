@@ -14,17 +14,18 @@ For more information see:
 ##How to Use##
 
 Let's do a simple example. Let's get the latest rates from BRL(Brazilian Real)
+```java
+import java.math.BigDecimal;
+import org.openexchangerates.oerjava.Currency;
+import org.openexchangerates.oerjava.OpenExchangeRates;
 
-    import java.math.BigDecimal;
-    import org.openexchangerates.oerjava.Currency;
-    import org.openexchangerates.oerjava.OpenExchangeRates;
-
-    public class BRLRate {
-	    public static void main(String[] args) {
-		    OpenExchangeRates oer = OpenExchangeRates.getClient();
-		    BigDecimal BRLValue = oer.getCurrencyValue(Currency.BRL);
-		    System.out.println(BRLValue);
-	    }
-    }
+public class BRLRate {
+	public static void main(String[] args) {
+		OpenExchangeRates oer = OpenExchangeRates.getClient();
+		BigDecimal BRLValue = oer.getCurrencyValue(Currency.BRL);
+		System.out.println(BRLValue);
+	}
+}
+```
 
 For more information see the [documentation][1]
