@@ -53,7 +53,7 @@ public class OERJavaTest extends TestCase {
 	 * @throws UnavailableExchangeRateException
 	 */
 	public void testApp() throws UnavailableExchangeRateException {
-		OpenExchangeRates client = OpenExchangeRates.getClient();
+		OpenExchangeRates client = OpenExchangeRates.getClient("<<ADD IN YOUR KEY>>");
 
 		for (Map.Entry<Currency, BigDecimal> entry : client.getLatest()
 				.entrySet()) {
@@ -76,7 +76,7 @@ public class OERJavaTest extends TestCase {
 		assertTrue(client.getHistoricalCurrencyValue(Currency.USD, cal)
 				.compareTo(new BigDecimal(1)) == 0);
 
-		cal.set(Calendar.YEAR, 1990);
+		cal.set(Calendar.YEAR, 1999);
 		cal.set(Calendar.MONTH, Calendar.JANUARY);
 		cal.set(Calendar.DAY_OF_MONTH, 01);
 

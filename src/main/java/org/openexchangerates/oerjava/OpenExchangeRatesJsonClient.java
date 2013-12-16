@@ -34,11 +34,21 @@ import org.openexchangerates.oerjava.exceptions.UnavailableExchangeRateException
  * @author Demétrio Menezes Neto
  */
 class OpenExchangeRatesJsonClient extends OpenExchangeRates {
-	private final static String OER_URL = "http://openexchangerates.org/";
-	private final static String LATEST = "latest.json";
-	private final static String HISTORICAL = "historical/%04d-%02d-%02d.json";
+	private final static String OER_URL = "http://openexchangerates.org/api/";
+	private String LATEST;
+	private String HISTORICAL;
 
 	private final static ObjectMapper mapper = new ObjectMapper();
+
+	/**
+	 * Constructor for a new OpenExchangeRatesJsonClient
+	 *
+	 * @param apiKey The API key to Open Exchange Rates
+	 */
+	public OpenExchangeRatesJsonClient(String apiKey) {
+		LATEST = "latest.json?app_id=" + apiKey;
+		HISTORICAL = "historical/%04d-%02d-%02d.json?app_id=" + apiKey;
+	}
 
 	/**
 	 * Downloads the exchanges rates from given json path
