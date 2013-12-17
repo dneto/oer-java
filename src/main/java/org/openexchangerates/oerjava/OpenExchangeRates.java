@@ -30,8 +30,8 @@ public abstract class OpenExchangeRates {
 	 * Generate and get a new Open Exchange Rates client
 	 * @return a Open Exchange Rates client
 	 */
-	public static OpenExchangeRates getClient() {
-		return new OpenExchangeRatesJsonClient();
+	public static OpenExchangeRates getClient(String apiKey) {
+		return new OpenExchangeRatesJsonClient(apiKey);
 	}
 
 	/**
