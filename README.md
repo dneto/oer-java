@@ -27,8 +27,8 @@ import org.openexchangerates.oerjava.OpenExchangeRates;
 
 public class BRLRate {
 	public static void main(String[] args) {
-		OpenExchangeRates oer = OpenExchangeRates.getClient();
-		BigDecimal BRLValue = oer.getCurrencyValue(Currency.BRL);
+		OpenExchangeRates oer = OpenExchangeRates("YOUR_APP_ID_HERE");
+		BigDecimal BRLValue = oer.getCurrencyValue("BRL");
 		System.out.println(BRLValue);
 	}
 }
