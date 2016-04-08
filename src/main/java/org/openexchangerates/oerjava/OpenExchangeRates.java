@@ -14,66 +14,93 @@
 */
 package org.openexchangerates.oerjava;
 
-import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Map;
-
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.openexchangerates.oerjava.exceptions.UnavailableExchangeRateException;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 /**
- * Open Exchange Rates(http://openexchangerates.org) client
+ * Java Open Exchange Rates(http://openexchangerates.org) client
+ * 
  * @author Demétrio Menezes Neto
  */
-public abstract class OpenExchangeRates {
+public class OpenExchangeRates {
+	private final static String OER_URL = "http://openexchangerates.org/api/";
+	private static final String LATEST = "latest.json?app_id=%s";
+	private static final String HISTORICAL = "historical/%04d-%02d-%02d.json?app_id=%s";
+	private final String appId;
+
+	private final static ObjectMapper mapper = new ObjectMapper();
 
 	/**
-	 * Generate and get a new Open Exchange Rates client
-	 * @return a Open Exchange Rates client
+	 * Constructor for a new OpenExchangeRates
+	 *
+	 * @param appId The API key to Open Exchange Rates
 	 */
-	public static OpenExchangeRates getClient(String apiKey) {
-		return new OpenExchangeRatesJsonClient(apiKey);
+	public OpenExchangeRates(String appId) {
+		this.appId = appId;
 	}
 
 	/**
-	 * Get the latest exchange rates from
-	 * http://openexchangerates.org/latest.json
+	 * Downloads the exchanges rates from given json path
+	 * 
+	 * @param downloadPath
+	 *            Path to json file
+	 * @return Map containing all rates of json file as key, and their exchange as value
+	 * @throws UnavailableExchangeRateException
+	 */
+	private Map<String, BigDecimal> updateExchangeRates(
+			String downloadPath) throws UnavailableExchangeRateException {
+		try {
+			Map<String, BigDecimal> exchangeRates = new HashMap<>();
+			String urlString = String.format(OER_URL + downloadPath, this.appId);
+			URL url = new URL(urlString);
+			URLConnection conn = url.openConnection();
+			JsonNode node = mapper.readTree(conn.getInputStream());
+			Iterator<Map.Entry<String, JsonNode>> fieldNames = node.get("rates").getFields();
+			fieldNames.forEachRemaining(e -> exchangeRates.put(e.getKey(), e.getValue().getDecimalValue()));
+			return exchangeRates;
+		} catch (IOException e) {
+			throw new UnavailableExchangeRateException(e.getMessage());
+		}
+	}
+
+	/**
+	 * Get the latest exchange rates
 	 * 
 	 * @return Last updated exchange rates
-	 */
-	public abstract Map<Currency, BigDecimal> getLatest();
-
-	/**
-	 * Get a historical exchange rate from a given date
-	 * 
-	 * @param date
-	 *            Date of desired rates
-	 * @return Exchange rates of desired date.
 	 * @throws UnavailableExchangeRateException
-	 *             when a exchange rate is unavailable
 	 */
-	public abstract Map<Currency, BigDecimal> getHistorical(Calendar date)
-			throws UnavailableExchangeRateException;
+	public Map<String, BigDecimal> latest() throws UnavailableExchangeRateException {
+			return updateExchangeRates(LATEST);
+	}
 
-	/**
-	 * Get the latest exchange rate from a given currency
-	 * 
-	 * @param currency
-	 *            Desired currency
-	 * @return Latest value of exchange rate
-	 */
-	public abstract BigDecimal getCurrencyValue(Currency currency);
+	public Map<String, BigDecimal> historical(Calendar date)
+			throws UnavailableExchangeRateException {
 
-	/**
-	 * Get a historical exchange rate from a given currency and date
-	 * 
-	 * @param currency
-	 *            Currency of desired rate
-	 * @param date
-	 *            Date of desired rate
-	 * @return Value of exchange rate in desired date
-	 * @throws when
-	 *             a exchange rate is unavailable
-	 */
-	public abstract BigDecimal getHistoricalCurrencyValue(Currency currency,
-			Calendar date) throws UnavailableExchangeRateException;
+		int day = date.get(Calendar.DAY_OF_MONTH);
+		int month = date.get(Calendar.MONTH) + 1;
+		int year = date.get(Calendar.YEAR);
+
+		String historical = String.format(HISTORICAL, year, month, day, appId);
+		return updateExchangeRates(historical);
+
+	}
+
+	public BigDecimal currency(String currency) throws UnavailableExchangeRateException {
+		return latest().get(currency);
+	}
+
+	public BigDecimal historicalCurrency(String currency,
+										 Calendar date) throws UnavailableExchangeRateException {
+		return historical(date).get(currency);
+	}
 }
