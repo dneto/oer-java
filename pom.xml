@@ -1,11 +1,8 @@
-<project
-	xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.openexchange</groupId>
 	<artifactId>oer-java</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>oer-java</name>
 	<url>http://maven.apache.org</url>
@@ -42,6 +39,7 @@
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
+                <version>3.5.1</version>
 			</plugin>
 		</plugins>
 	</build>
@@ -59,4 +57,19 @@
 			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
 		</license>
 	</licenses>
+
+    <scm>
+        <connection>scm:git:https://github.com/dneto/oer-java.git</connection>
+        <developerConnection>scm:git:git@github.com:dneto/oer-java.git</developerConnection>
+        <url>https://github.com/dneto/oer-java</url>
+        <tag>1.0.0</tag>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>bintray-repo</id>
+            <name>dneto</name>
+            <url>https://api.bintray.com/maven/dneto/maven-repo/oer-java/;publish=1</url>
+        </repository>
+    </distributionManagement>
 </project>
